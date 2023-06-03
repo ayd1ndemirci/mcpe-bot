@@ -1,5 +1,7 @@
 {
-    "token": "yout_bot_token",
+    "token": "",
+    "clientID": "",
     "ip": "play.craftersmc.net",
-    "port": 19132
+    "port": 19132,
+    "voteURL": "https://minecraftpocket-servers.com/server/122989/vote/" 
 }
