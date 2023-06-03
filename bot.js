@@ -4,9 +4,7 @@ const Gamedig = require('gamedig');
 
 const bot = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-const token = "your_bot_token";
-const serverIP = 'play.craftersmc.net';
-const serverPort = 19132;
+const config = new require("./config.json");
 
 bot.on('ready', () => {
   console.log(`Bot başarıyla giriş yaptı: ${bot.user.tag}`);
@@ -18,8 +16,8 @@ async function checkServerStatus() {
   try {
     const response = await Gamedig.query({
       type: 'minecraftpe',
-      host: serverIP,
-      port: serverPort,
+      host: config.ip,
+      port: config.port,
     });
     const playerCount = response.players.length;
     const status = `Sunucuda ${playerCount} kişi`;
@@ -31,4 +29,4 @@ async function checkServerStatus() {
   }
 }
 
-bot.login(token);
+bot.login(config.token);
