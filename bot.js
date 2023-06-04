@@ -7,12 +7,16 @@ const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.G
 const config = new require("./config.json");
 const commands = [
   {
-      name: "ip",
-      description: "Sunucunun IP'sini görme komutu"
+    name: "ip",
+    description: "Sunucunun IP'sini görme komutu"
   },
   {
-      name: "oy",
-      description: "Oy site linki kısayolu"
+    name: "oy",
+    description: "Oy site linki kısayolu"
+  },
+  {
+    name: "yardim",
+    description: "Yardım komutlarını gösterir"
   }
 ];
 
@@ -24,10 +28,10 @@ bot.on('ready', () => {
 const rest = new REST({ version: '10' }).setToken(config.token);
 (async () => {
   try {
-      await rest.put(Routes.applicationCommands(config.clientID), { body: commands });
-      console.log("Komutlar yükleniyor...");
+    await rest.put(Routes.applicationCommands(config.clientID), { body: commands });
+    console.log("Komutlar yükleniyor...");
   } catch (error) {
-      console.error(error);
+    console.error(error);
   }
 })();
 
@@ -38,8 +42,7 @@ bot.on("messageCreate", async (message) => {
   }
 });
 
-function ipEmbed()
-{
+function ipEmbed() {
   return new EmbedBuilder()
     .setTitle("**Sunucu Adı Sunucu Bilgileri**")
     .setDescription(`**IP Adresi:** \n${config.ip}\n\n**Port:** \n${config.port}`)
@@ -54,8 +57,7 @@ bot.on("interactionCreate", async (interaction) => {
     }
   }
 });
-function voteEmbed()
-{
+function voteEmbed() {
   return new EmbedBuilder()
     .setTitle("Oy Sitesine gitmek için tıkla")
     .setColor("Random")
@@ -63,10 +65,10 @@ function voteEmbed()
 }
 bot.on("interactionCreate", async interaction => {
   if (interaction.isChatInputCommand) {
-      if (interaction.commandName === "oy") {
-          embed = new voteEmbed();
-          interaction.reply({embeds: [embed], ephemeral: true});
-      }
+    if (interaction.commandName === "oy") {
+      embed = new voteEmbed();
+      interaction.reply({ embeds: [embed], ephemeral: true });
+    }
   }
 });
 
@@ -88,7 +90,7 @@ async function checkServerStatus() {
     const playerCount = response.players.length;
     const status = `Sunucuda ${playerCount} kişi`;
     bot.user.setActivity(status);
-   // console.log(status)
+    // console.log(status)
   } catch (error) {
     console.error('Sunucu durumu kontrol edilemedi.', error);
     bot.user.setActivity('Sunucu durumu kontrol edilemedi.');
